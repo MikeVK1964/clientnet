@@ -22,15 +22,16 @@ MyClientWidget::MyClientWidget(const QString& strHost,
                    QWidget*       pwgt /*=0*/
                   ) : QWidget(pwgt)
 {
-    m_pMkClientSock= new MkClientSocket(strHost,nPort,pwgt);
-
+ //   m_pMkClientSock= new MkClientSocket(pwgt);
+ //   m_pMkClientSock->PrepareActions(strHost,nPort);
+    pThreadsController = new ThreadsController(this);
 
     m_ptxtInfo  = new QTextEdit;
-    //m_ptxtInput = new QLineEdit;
+//    void SignalSendSecTime(double );
 
 
     connect(this, SIGNAL(SignalSendSecTime(double )),
-                m_pMkClientSock, SLOT(SlotSendToServer(double ))
+                pThreadsController, SIGNAL(SignalSendSecTime(double ))
                );
 
     m_ptxtInfo->setReadOnly(true);
@@ -63,8 +64,10 @@ void MyClientWidget::PressSend()
 //-------------------------------------------------------------------------
 void MyClientWidget::SlotShowTracks()
 {
-    QVector<TargetPositionNet>* ptp=m_pMkClientSock->getVect();
-    QMutexLocker locker(&m_pMkClientSock->m_mutex);
+//    QVector<TargetPositionNet>* ptp=m_pMkClientSock->getVect();
+    QVector<TargetPositionNet> *ptp = pThreadsController->GetMkClSock()->getVect();
+//    QMutexLocker locker(&m_pMkClientSock->m_mutex);
+    QMutexLocker locker(&pThreadsController->GetMkClSock()->m_mutex);
 
     qsizetype trace_count=(*ptp).count();
     QString str = QString("число трасс %1").arg(trace_count);

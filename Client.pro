@@ -7,10 +7,12 @@ QT          += network
 SOURCES	     = main.cpp \
                MyClient.cpp \
                maketras.cpp \
-               mkclientsocket.cpp
+               mkclientsocket.cpp \
+               threadscontroller.cpp
 HEADERS      = MyClient.h \
     convcoor.h \
     maketras.h \
-    mkclientsocket.h
+    mkclientsocket.h \
+    threadscontroller.h
 win32:TARGET = ../MyClient
 

@@ -12,6 +12,7 @@
 #include <QWidget>
 #include <QTcpSocket>
 #include "mkclientsocket.h"
+#include "threadscontroller.h"
 
 class QTextEdit;
 class QLineEdit;
@@ -20,11 +21,9 @@ class QLineEdit;
 class MyClientWidget : public QWidget {
 Q_OBJECT
 private:
-    QTcpSocket* m_pTcpSocket;
-    MkClientSocket* m_pMkClientSock;
-
+///    MkClientSocket* m_pMkClientSock;
+    ThreadsController* pThreadsController;
     QTextEdit*  m_ptxtInfo;
-//    QLineEdit*  m_ptxtInput;
 
 public:
     MyClientWidget(const QString& strHost, int nPort, QWidget* pwgt = 0) ;
